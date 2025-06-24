@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tareas para Nahiara</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Tareas para Nahiara</h1>
+    <ul>
+      <?php
+      $conn = new mysqli("localhost", "root", "", "tareas_db");
+      if ($conn->connect_error) {
+        die("Conexión fallida: " . $conn->connect_error);
+      }
+      $result = $conn->query("SELECT * FROM tareas ORDER BY id DESC");
+      while ($row = $result->fetch_assoc()) {
+        echo "<li>" . htmlspecialchars($row['descripcion']) . "</li>";
+      }
+      $conn->close();
+      ?>
+    </ul>
+  </div>
+</body>
+</html>
